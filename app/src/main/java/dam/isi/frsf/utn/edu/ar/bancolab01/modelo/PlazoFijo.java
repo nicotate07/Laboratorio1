@@ -1,5 +1,7 @@
 package dam.isi.frsf.utn.edu.ar.bancolab01.modelo;
 
+import android.util.Log;
+
 import java.util.Arrays;
 
 public class PlazoFijo {
