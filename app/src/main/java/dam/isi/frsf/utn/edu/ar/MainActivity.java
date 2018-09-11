@@ -2,6 +2,8 @@ package dam.isi.frsf.utn.edu.ar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //SEGUIMOS ACA
+
         pf = new PlazoFijo(getResources().getStringArray(R.array.tasas));
         cliente = new Cliente();
 
@@ -56,6 +58,32 @@ public class MainActivity extends AppCompatActivity {
         btnHacerPF = findViewById(R.id.btnHacerPF);
         edtMensajes = findViewById(R.id.edtMensajes);
 
+        final Integer seekMinValue = 10;
+        final Integer seekMaxValue = 170;
+        seekDias.setMax(seekMaxValue);
+        seekDias.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seek,int n,boolean b)
+            {
+                Integer dias = n + seekMinValue;
+                tvDiasSeleccionados.setText(dias.toString());
+                pf.setDias(dias);
+                String m = edtMonto.getText().toString();
+                if(!m.isEmpty())
+                {
+                    pf.setMonto(new Double(m));
+                }
+                tvIntereses.setText("$"+pf.intereses().toString());
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) { }
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+        seekDias.setProgress(0);
+        tvDiasSeleccionados.setText(seekMinValue.toString());
+        pf.setDias(seekMinValue);
+        tvIntereses.setText(pf.intereses().toString());
+        //TODO: El calculo de intereses esta mal?, Ver ejemplo del tp, da distinto...
     }
 
 }
