@@ -93,6 +93,15 @@ public class PlazoFijo {
                 ", cliente=" + cliente +
                 '}';
     }
+    public String toStringSuccess() {
+        return "PlazoFijo{" +
+                "dias=" + dias +
+                ", monto=" + monto +
+                ", avisarVencimiento=" + avisarVencimiento +
+                ", renovarAutomaticamente=" + renovarAutomaticamente +
+                ", moneda=" + moneda +
+                '}';
+    }
 
     private Double calcularTasa(){
         //dias <30
